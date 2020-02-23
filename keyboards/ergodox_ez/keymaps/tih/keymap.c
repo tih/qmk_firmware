@@ -128,6 +128,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [GREK] = LAYOUT_ergodox(
+  // left hand
+  _______, _______,   _______, _______, _______, _______, _______,
+  _______, YA,        VE,      IE,      ER,      TE,      _______,
+  _______, CTL_T(AH), ES,      DE,      EF,      GHE,
+  _______, ZE,        HA,      TSE,     ZHE,     BE,      _______,
+  _______, _______,   YU,      HARD,    SOFT,
+                                                 _______, _______,
+                                                          _______,
+                                        _______, _______, _______,
+  // right hand
+  _______, _______,   _______, _______, _______, _______, _______,
+  _______, YERU,      UU,      IH,      OH,      PE,      _______,
+           CHE,       SIH,     KA,      EL,      _______, _______,
+  _______, EN,        EM,      _______, _______, _______, _______,
+                      SHA,     SCHA,    EH,      IO,       _______,
+  _______, _______,
+  _______,
+  _______, _______, _______
 ),
 
 /* Keymap 3: Symbol Layer
@@ -213,7 +231,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS,
   KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_WBAK),
+  KC_TRNS, KC_TRNS, KC_WBAK
+),
+
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
