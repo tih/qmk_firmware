@@ -43,6 +43,7 @@
     M(LOMI,  0x03BF) /* ο */ \
     M(LPI,   0x03C0) /* π */ \
     M(LRHO,  0x03C1) /* ρ */ \
+    M(LFSIG, 0x03C2) /* ς */ \
     M(LSIG,  0x03C3) /* σ */ \
     M(LTAU,  0x03C4) /* τ */ \
     M(LUPS,  0x03C5) /* υ */ \
@@ -139,30 +140,30 @@ enum unicode_keycodes {
 };
 #endif
 
-#define ALPHA XP(LALP, UALP)
-#define BETA  XP(LBET, UBET)
-#define GAMMA XP(LGAM, UGAM)
-#define DELTA XP(LDEL, UDEL)
-#define EPSLN XP(LEPS, UEPS)
-#define ZETA  XP(LZET, UZET)
-#define ETA   XP(LETA, UETA)
-#define THETA XP(LTHE, UTHE)
-#define IOTA  XP(LIOT, UIOT)
-#define KAPPA XP(LKAP, UKAP)
-#define LAMBD XP(LLAM, ULAM)
-#define GMU   XP(LMU,  UMU)
-#define NU    XP(LNU,  UNU)
-#define XI    XP(LXI,  UXI)
-#define OMCRN XP(LOMI, UOMI)
-#define PI    XP(LPI,  UPI)
-#define RHO   XP(LRHO, URHO)
-#define SIGMA XP(LSIG, USIG)
-#define TAU   XP(LTAU, UTAU)
-#define UPSLN XP(LUPS, UUPS)
-#define PHI   XP(LPHI, UPHI)
-#define CHI   XP(LCHI, UCHI)
-#define PSI   XP(LPSI, UPSI)
-#define OMEGA XP(LOME, UOME)
+#define ALPHA   XP(LALP, UALP)
+#define BETA    XP(LBET, UBET)
+#define GAMMA   XP(LGAM, UGAM)
+#define DELTA   XP(LDEL, UDEL)
+#define EPSILON XP(LEPS, UEPS)
+#define ZETA    XP(LZET, UZET)
+#define ETA     XP(LETA, UETA)
+#define THETA   XP(LTHE, UTHE)
+#define IOTA    XP(LIOT, UIOT)
+#define KAPPA   XP(LKAP, UKAP)
+#define LAMBDA  XP(LLAM, ULAM)
+#define MU      XP(LMU,  UMU)
+#define NU      XP(LNU,  UNU)
+#define XI      XP(LXI,  UXI)
+#define OMICRON XP(LOMI, UOMI)
+#define PI      XP(LPI,  UPI)
+#define RHO     XP(LRHO, URHO)
+#define SIGMA   XP(LSIG, USIG)
+#define TAU     XP(LTAU, UTAU)
+#define UPSILON XP(LUPS, UUPS)
+#define PHI     XP(LPHI, UPHI)
+#define CHI     XP(LCHI, UCHI)
+#define PSI     XP(LPSI, UPSI)
+#define OMEGA   XP(LOME, UOME)
 
 #define AH   XP(LAH,   UAH)
 #define BE   XP(LBE,   UBE)
