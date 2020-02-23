@@ -13,7 +13,7 @@
     M(UIOT,  0x0399) /* Ι */ \
     M(UKAP,  0x039A) /* Κ */ \
     M(ULAM,  0x039B) /* Λ */ \
-    M(UMU,   0x039C) /* M */ \
+    M(UMU,   0x039C) /* Μ */ \
     M(UNU,   0x039D) /* Ν */ \
     M(UXI,   0x039E) /* Ξ */ \
     M(UOMI,  0x039F) /* Ο */ \
