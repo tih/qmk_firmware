@@ -151,7 +151,7 @@ enum unicode_keycodes {
 #define IOTA    XP(LIOT, UIOT)
 #define KAPPA   XP(LKAP, UKAP)
 #define LAMBDA  XP(LLAM, ULAM)
-#define MU      XP(LMU,  UMU)
+#define GKMU    XP(LMU,  UMU)
 #define NU      XP(LNU,  UNU)
 #define XI      XP(LXI,  UXI)
 #define OMICRON XP(LOMI, UOMI)
