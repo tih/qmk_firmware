@@ -158,6 +158,7 @@ enum unicode_keycodes {
 #define PI      XP(LPI,  UPI)
 #define RHO     XP(LRHO, URHO)
 #define SIGMA   XP(LSIG, USIG)
+#define FSIGMA  XP(LFSIG,USIG)
 #define TAU     XP(LTAU, UTAU)
 #define UPSILON XP(LUPS, UUPS)
 #define PHI     XP(LPHI, UPHI)
