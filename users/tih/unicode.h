@@ -26,6 +26,15 @@
     M(UCHI,  0x03A7) /* Χ */ \
     M(UPSI,  0x03A8) /* Ψ */ \
     M(UOME,  0x03A9) /* Ω */ \
+    M(UALPT, 0x0386) /* Ά */ \
+    M(UEPST, 0x0388) /* Έ */ \
+    M(UETAT, 0x0389) /* Ή */ \
+    M(UIOTT, 0x038A) /* Ί */ \
+    M(UOMIT, 0x038C) /* Ό */ \
+    M(UUPST, 0x038E) /* Ύ */ \
+    M(UOMET, 0x038F) /* Ώ */ \
+    M(UIOTD, 0x03AA) /* Ϊ */ \
+    M(UUPSD, 0x03AB) /* Ϋ */ \
     M(LALP,  0x03B1) /* α */ \
     M(LBET,  0x03B2) /* β */ \
     M(LGAM,  0x03B3) /* γ */ \
@@ -51,6 +60,15 @@
     M(LCHI,  0x03C7) /* χ */ \
     M(LPSI,  0x03C8) /* ψ */ \
     M(LOME,  0x03C9) /* ω */ \
+    M(LALPT, 0x03AC) /* ά */ \
+    M(LEPST, 0x03AD) /* έ */ \
+    M(LETAT, 0x03AE) /* ή */ \
+    M(LIOTT, 0x03AF) /* ί */ \
+    M(LOMIT, 0x03CC) /* ό */ \
+    M(LUPST, 0x03CD) /* ύ */ \
+    M(LOMET, 0x03CE) /* ώ */ \
+    M(LIOTD, 0x03CA) /* ϊ */ \
+    M(LUPSD, 0x03CB) /* ϋ */ \
     M(UAH,   0x0410) /* А */ \
     M(UBE,   0x0411) /* Б */ \
     M(UVE,   0x0412) /* В */ \
@@ -165,6 +183,16 @@ enum unicode_keycodes {
 #define CHI     XP(LCHI, UCHI)
 #define PSI     XP(LPSI, UPSI)
 #define OMEGA   XP(LOME, UOME)
+
+#define ALPHAT XP(LALPT, UALPT)
+#define EPSILT XP(LEPST, UEPST)
+#define ETAT   XP(LETAT, UETAT)
+#define IOTAT  XP(LIOTT, UIOTT)
+#define OMICRT XP(LOMIT, UOMIT)
+#define UPSILT XP(LUPST, UUPST)
+#define OMEGAT XP(LOMET, UOMET)
+#define IOTAD  XP(LIOTD, UIOTD)
+#define UPSILD XP(LUPSD, UUPSD)
 
 #define AH   XP(LAH,   UAH)
 #define BE   XP(LBE,   UBE)
