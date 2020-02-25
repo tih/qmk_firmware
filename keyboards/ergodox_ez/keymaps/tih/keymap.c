@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
     hack: put ´ and ¨ here, but as
     one-shot jumps to yet another
-    layer, to get the accented chars
+    layer, to get the accented chars:
 
     ALPHAT: ά/Ά
     EPSILT: έ/Έ
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right hand
   _______, _______,      _______, _______, _______, _______, _______,
   _______, UPSILON,      THETA,   IOTA,    OMICRON, PI,      _______,
-           ETA,          XI,      KAPPA,   LAMBDA,  _______, _______,
+           ETA,          XI,      KAPPA,   LAMBDA,  KC_GRV,  _______,
   _______, NU,           GKMU,    _______, _______, _______, _______,
                          _______, _______, _______, _______, _______,
   _______, _______,
@@ -296,24 +296,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+void matrix_init_user(void) {
+  set_unicode_input_mode(UC_LNX);
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
-      case EPRM:
-        eeconfig_init();
-        return false;
-      case VRSN:
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        return false;
+    case EPRM:
+      eeconfig_init();
+      return false;
+    case VRSN:
+      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+      return false;
+    case KC_GRV:
+      if (is_oneshot_layer_active()) {
+	clear_oneshot_layer_state(ONESHOT_PRESSED);
+      } else {
+	if ((keyboard_report->mods & MOD_BIT (KC_LSFT)) ||
+	    (keyboard_report->mods & MOD_BIT (KC_RSFT))) {
+	  layer_on(DIAL);
+	  set_oneshot_layer(DIAL, ONESHOT_START);
+	} else {
+	  layer_on(TONO);
+	  set_oneshot_layer(TONO, ONESHOT_START);
+	}
+      }
+      return false;
+    default:
+      if (is_oneshot_layer_active())
+	clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+      return true;
     }
+  } else {
+    if (is_oneshot_layer_active())
+      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
   }
   return true;
 }
-
-void matrix_init_user(void) {
-
-  set_unicode_input_mode(UC_LNX);
-};
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_right_led_1_off();
