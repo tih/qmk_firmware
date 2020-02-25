@@ -16,7 +16,8 @@ enum custom_keycodes {
 #else
   EPRM = SAFE_RANGE,
 #endif
-  VRSN
+  VRSN,
+  GACC
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -26,10 +27,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Del    |   Q  |   W  |   E  |   R  |   T  |  L5  |           |  L5  |   Y  |   U  |   I  |   O  |   P  |   \    |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |  L5  |           |  L6  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Ctrl   |A/Ctrl|   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L6|' / Cmd |
- * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
+ * | Ctrl   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L6|' / Win |
+ * |--------+------+------+------+------+------| Cyr. |           | Grk. |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |Grv/L5|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L5  |
@@ -45,19 +46,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BASE] = LAYOUT_ergodox(
   // left hand
-  KC_EQL,          KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_LEFT,
-  KC_DEL,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    TG(SYMB),
-  KC_LCTL,         CTL_T(KC_A), KC_S,          KC_D,    KC_F,    KC_G,
-  KC_LSFT,         KC_Z,        KC_X,          KC_C,    KC_V,    KC_B,    ALL_T(KC_NO),
-  LT(SYMB,KC_GRV), KC_QUOT,     LALT(KC_LSFT), KC_LEFT, KC_RGHT,
-                                                           ALT_T(KC_APP), KC_LGUI,
-                                                                          KC_HOME,
-                                                         KC_ENT, KC_TAB, KC_END,
+  KC_EQL,          KC_1,    KC_2,          KC_3,    KC_4,    KC_5,    KC_LEFT,
+  KC_TAB,          KC_Q,    KC_W,          KC_E,    KC_R,    KC_T,    TG(SYMB),
+  KC_LCTL,         KC_A,    KC_S,          KC_D,    KC_F,    KC_G,
+  KC_LSFT,         KC_Z,    KC_X,          KC_C,    KC_V,    KC_B,    TG(CYRL),
+  LT(SYMB,KC_GRV), KC_QUOT, LALT(KC_LSFT), KC_LEFT, KC_RGHT,
+                                                       ALT_T(KC_APP), KC_LGUI,
+                                                                      KC_HOME,
+                                                      KC_ENT, KC_TAB, KC_END,
   // right hand
   KC_RGHT,      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,              KC_MINS,
-  TG(SYMB),     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,              KC_BSLS,
+  TG(MDIA),     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,              KC_BSLS,
                 KC_H,    KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), GUI_T(KC_QUOT),
-  MEH_T(KC_NO), KC_N,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLSH),    KC_RSFT,
+  TG(GREK),     KC_N,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLSH),    KC_RSFT,
                          KC_UP,   KC_DOWN, KC_LBRC, KC_RBRC,           TT(SYMB),
   KC_LALT, CTL_T(KC_ESC),
   KC_PGUP,
@@ -88,20 +89,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [CYRL] = LAYOUT_ergodox(
   // left hand
-  _______, _______,   _______, _______, _______, _______, _______,
-  _______, YA,        VE,      IE,      ER,      TE,      _______,
-  _______, CTL_T(AH), ES,      DE,      EF,      GHE,
-  _______, ZE,        HA,      TSE,     ZHE,     BE,      _______,
-  _______, _______,   YU,      HARD,    SOFT,
-                                                 _______, _______,
-                                                          _______,
-                                        _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, YA,      VE,      IE,      ER,      TE,      _______,
+  _______, AH,      ES,      DE,      EF,      GHE,
+  _______, ZE,      HA,      TSE,     ZHE,     BE,      _______,
+  _______, _______, YU,      HARD,    SOFT,
+                                               _______, _______,
+                                                        _______,
+                                      _______, _______, _______,
   // right hand
-  _______, _______,   _______, _______, _______, _______, _______,
-  _______, YERU,      UU,      IH,      OH,      PE,      _______,
-           CHE,       SIH,     KA,      EL,      _______, _______,
-  _______, EN,        EM,      _______, _______, _______, _______,
-                      SHA,     SCHA,    EH,      IO,       _______,
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, YERU,    UU,      IH,      OH,      PE,      _______,
+           CHE,     SIH,     KA,      EL,      _______, _______,
+  _______, EN,      EM,      _______, _______, _______, _______,
+                    SHA,     SCHA,    EH,      IO,      _______,
   _______, _______,
   _______,
   _______, _______, _______
@@ -114,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |   ;  |   ς  |   Ε  |   Ρ  |   Τ  |      |           |      |   Υ  |   Θ  |   Ι  |   Ο  |   Π  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   Α  |   Σ  |   Δ  |   Φ  |   Γ  |------|           |------|   Η  |   Ξ  |   Κ  |   Λ  | hack |        |
+ * |        |   Α  |   Σ  |   Δ  |   Φ  |   Γ  |------|           |------|   Η  |   Ξ  |   Κ  |   Λ  | acc. |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |   Ζ  |   Χ  |   Ψ  |   Ω  |   Β  |      |           |      |   Ν  |   Μ  |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -129,38 +130,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 
-/*
-    hack: put ´ and ¨ here, but as
-    one-shot jumps to yet another
-    layer, to get the accented chars:
-
-    ALPHAT: ά/Ά
-    EPSILT: έ/Έ
-    ETAT:   ή/Ή
-    IOTAT:  ί/Ί
-    OMICRT: ό/Ό
-    UPSILT: ύ/Ύ
-    OMEGAT: ώ/Ώ
-    IOTAD:  ϊ/Ϊ
-    UPSILD: ϋ/Ϋ
-*/
-
 [GREK] = LAYOUT_ergodox(
   // left hand
-  _______, _______,      _______, _______, _______, _______, _______,
-  _______, KC_SCLN,      FSIGMA,  EPSILON, RHO,     TAU,     _______,
-  _______, CTL_T(ALPHA), SIGMA,   DELTA,   PHI,     GAMMA,
-  _______, ZETA,         CHI,     PSI,     OMEGA,   BETA,    _______,
-  _______, _______,      _______, _______, _______,
-                                                    _______, _______,
-                                                             _______,
-                                           _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, KC_SCLN, FSIGMA,  EPSILON, RHO,     TAU,     _______,
+  _______, ALPHA,   SIGMA,   DELTA,   PHI,     GAMMA,
+  _______, ZETA,    CHI,     PSI,     OMEGA,   BETA,    _______,
+  _______, _______, _______, _______, _______,
+                                               _______, _______,
+                                                        _______,
+                                      _______, _______, _______,
   // right hand
-  _______, _______,      _______, _______, _______, _______, _______,
-  _______, UPSILON,      THETA,   IOTA,    OMICRON, PI,      _______,
-           ETA,          XI,      KAPPA,   LAMBDA,  KC_GRV,  _______,
-  _______, NU,           GKMU,    _______, _______, _______, _______,
-                         _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, UPSILON, THETA,   IOTA,    OMICRON, PI,      _______,
+           ETA,     XI,      KAPPA,   LAMBDA,  GACC,    _______,
+  _______, NU,      GKMU,    _______, _______, _______, _______,
+                    _______, _______, _______, _______, _______,
   _______, _______,
   _______,
   _______, _______, _______
@@ -292,15 +277,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______,
   _______,
   _______, _______, KC_WBAK
-),
+)
 
 };
 
 void matrix_init_user(void) {
+
   set_unicode_input_mode(UC_LNX);
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
   if (record->event.pressed) {
     switch (keycode) {
     case EPRM:
@@ -309,33 +296,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case VRSN:
       SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       return false;
-    case KC_GRV:
-      if (is_oneshot_layer_active()) {
-	clear_oneshot_layer_state(ONESHOT_PRESSED);
+    case GACC:
+      if ((keyboard_report->mods & MOD_BIT (KC_LSFT)) ||
+	  (keyboard_report->mods & MOD_BIT (KC_RSFT))) {
+	set_oneshot_layer(DIAL, ONESHOT_START);
       } else {
-	if ((keyboard_report->mods & MOD_BIT (KC_LSFT)) ||
-	    (keyboard_report->mods & MOD_BIT (KC_RSFT))) {
-	  layer_on(DIAL);
-	  set_oneshot_layer(DIAL, ONESHOT_START);
-	} else {
-	  layer_on(TONO);
-	  set_oneshot_layer(TONO, ONESHOT_START);
-	}
+	set_oneshot_layer(TONO, ONESHOT_START);
       }
       return false;
-    default:
-      if (is_oneshot_layer_active())
-	clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-      return true;
     }
   } else {
-    if (is_oneshot_layer_active())
+    switch (keycode) {
+    case GACC:
+    case KC_LSFT:
+    case KC_RSFT:
+      clear_oneshot_layer_state(ONESHOT_PRESSED);
+      break;
+    default:
       clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+    }
   }
   return true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
+
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
@@ -345,30 +330,30 @@ layer_state_t layer_state_set_user(layer_state_t state) {
       case 0:
         break;
       case 1:
-        ergodox_right_led_1_on();
+        ergodox_right_led_3_on();
         break;
       case 2:
         ergodox_right_led_2_on();
         break;
       case 3:
-	ergodox_right_led_1_on();
+	ergodox_right_led_3_on();
         ergodox_right_led_2_on();
         break;
       case 4:
-        ergodox_right_led_3_on();
+        ergodox_right_led_1_on();
         break;
       case 5:
-        ergodox_right_led_1_on();
         ergodox_right_led_3_on();
+        ergodox_right_led_1_on();
         break;
       case 6:
         ergodox_right_led_2_on();
-        ergodox_right_led_3_on();
+        ergodox_right_led_1_on();
         break;
       case 7:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
         ergodox_right_led_3_on();
+        ergodox_right_led_2_on();
+        ergodox_right_led_1_on();
         break;
       default:
         break;
