@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TG(GREK), KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
             KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, ALGR_T(KC_QUOT),
   TG(NAVI), KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                     KC_LBRC, KC_RBRC, KC_LALT, KC_RGUI, TT(NAVI),
+                     KC_LBRC, KC_RBRC, KC_RALT, KC_RGUI, TT(NAVI),
   KC_DOWN, KC_UP,
   KC_PGUP,
   KC_PGDN, KC_ENT, KC_SPC
@@ -240,11 +240,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * | Version |  F1  |  F2  |  F3  |  F4  |  F5  |Reset |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      | Home | PgDn | PgUp | End  |      |   F12  |
+ * |         |      |      |      |      |      |      |           |      |      | Home | PgDn | PgUp | End  |  F12   |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |Super | Rclk | Mclk | Lclk |      |------|           |------| LEFT | DOWN |  UP  | RGHT |      |        |
+ * |         |Super | Rclk | Mclk | Lclk |      |------|           |------|      | LEFT | DOWN |  UP  | RGHT |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |MsLeft|MsDown| MsUp |MsRght|      |        |
+ * |         |      |      |      |      |      |      |           |      |      |MsLeft|MsDown| MsUp |MsRght|        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |       |      |      |      |      |                                       |      |      |      |      |      |
  *   `-----------------------------------'                                       `----------------------------------'
@@ -252,7 +252,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                         |      |      |       |      |      |
  *                                  ,------|------|------|       |------+------+------.
  *                                  |      |      |      |       |      |      |      |
- *                                  | Back | Fwd  |------|       |------|      |      |
+ *                                  | Back | Fwd  |------|       |------|      |Reload|
  *                                  |      |      |      |       |      |      |      |
  *                                  `--------------------'       `--------------------'
  */
@@ -269,13 +269,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       KC_BTN4, KC_BTN5, _______,
   // right hand
   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, KC_F12,
-           KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-  _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
+  _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_F12,
+           _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
+  _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
                     _______, _______, _______, _______, _______,
   _______, _______,
   _______,
-  _______, _______, _______
+  _______, _______, C(KC_R)
 )
 
 };
@@ -315,7 +315,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef NOTYET
+#if 1
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 
@@ -332,13 +332,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   case TONO:
   case DIAL:
   case MODS:
-    if (layer_state_is(CYRL))
+    if (layer_state_cmp(state, CYRL)) {
       ergodox_right_led_3_on();
-    if (layer_state_is(GREK))
+    }
+    if (layer_state_cmp(state, GREK)) {
+      ergodox_right_led_3_off();
       ergodox_right_led_2_on();
-    if (layer_state_is(TONO) ||
-	layer_state_is(DIAL) ||
-	layer_state_is(MODS))
+    }
+    if (layer_state_cmp(state, TONO) ||
+	layer_state_cmp(state, DIAL) ||
+	layer_state_cmp(state, MODS))
       ergodox_right_led_1_on();
     break;
   case NAVI:
