@@ -11,7 +11,7 @@ enum layer_names {
   DIAL,     // Greek with Dialytika
 #endif
   NAVI,     // navigation keys
-  MODS      // Ctrl-key overlay for Unicode layers
+  MODS      // Ctrl-key overlay
 };
 
 #ifndef UNICODEMAP_ENABLE
