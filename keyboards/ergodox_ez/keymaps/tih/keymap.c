@@ -3,14 +3,14 @@
 #include "tih.h"
 
 enum layer_names {
-  BASE = 0, // default layer; US ASCII
+  BASE = 0, // Default layer; US ASCII
 #ifdef UNICODEMAP_ENABLE
   CYRL,     // Russian Cyrillic
   GREK,     // Greek
   TONO,     // Greek with Tonos
   DIAL,     // Greek with Dialytika
 #endif
-  NAVI,     // navigation keys
+  NAVI,     // Navigation keys
   MODS      // Modifier key overlay
 };
 
