@@ -2,13 +2,22 @@
 
 #include "tih.h"
 
-#define BASE 0 // default layer; US ASCII
-#define CYRL 1 // Russian Cyrillic
-#define GREK 2 // Greek
-#define TONO 3 // Greek with Tonos
-#define DIAL 4 // Greek with Dialytika
-#define MODS 5 // Ctrl-key overlay for Unicode layers
-#define NAVI 6 // navigation keys
+enum layer_names {
+  BASE = 0, // default layer; US ASCII
+#ifdef UNICODEMAP_ENABLE
+  CYRL,     // Russian Cyrillic
+  GREK,     // Greek
+  TONO,     // Greek with Tonos
+  DIAL,     // Greek with Dialytika
+#endif
+  NAVI,     // navigation keys
+  MODS      // Ctrl-key overlay for Unicode layers
+};
+
+#ifndef UNICODEMAP_ENABLE
+#define CYRL NAVI
+#define GREK NAVI
+#endif
 
 enum custom_keycodes {
 #ifdef ORYX_CONFIGURATOR
@@ -16,7 +25,9 @@ enum custom_keycodes {
 #else
   VRSN = SAFE_RANGE,
 #endif
+#ifdef UNICODEMAP_ENABLE
   GACC
+#endif
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -64,6 +75,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_PGDN, KC_ENT, KC_SPC
 ),
 
+#ifdef UNICODEMAP_ENABLE
+
 /* Cyrillic:
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -101,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, YERU,    UU,      IH,      OH,                PE,      _______,
            CHE,     SIH,     KA,      EL,                EH,      _______,
   _______, EN,      EM,      _______, _______,           IO,      _______,
-                    SHA,     SCHA,    LM(MODS,MOD_LALT), _______, _______,
+                    SHA,     SCHA,    LM(MODS,MOD_RALT), _______, _______,
   _______, _______,
   _______,
   _______, _______, _______
@@ -144,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, UPSILON, THETA,   IOTA,    OMICRON,           PI,      _______,
            ETA,     XI,      KAPPA,   LAMBDA,            GACC,    _______,
   _______, NU,      GKMU,    _______, _______,           _______, _______,
-                    _______, _______, LM(MODS,MOD_LALT), _______, _______,
+                    _______, _______, LM(MODS,MOD_RALT), _______, _______,
   _______, _______,
   _______,
   _______, _______, _______
@@ -192,6 +205,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______
 ),
 
+#endif
+
+/* Navigation layer:
+ *
+ * ,---------------------------------------------------.           ,--------------------------------------------------.
+ * | Version |  F1  |  F2  |  F3  |  F4  |  F5  |Reset |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
+ * |         |      |      |      |      |      |      |           |      |      | Home | PgDn | PgUp | End  |  F12   |
+ * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |    Ctl  |Super | Rclk | Mclk | Lclk |      |------|           |------|      | LEFT | DOWN |  UP  | RGHT |        |
+ * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |         |      |      |      |      |      |      |           |      |      |MsLeft|MsDown| MsUp |MsRght|        |
+ * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |       |      |  Alt |      |      |                                       |      |      |  Alt |      |      |
+ *   `-----------------------------------'                                       `----------------------------------'
+ *                                         ,-------------.       ,-------------.
+ *                                         |      |      |       |      |      |
+ *                                  ,------|------|------|       |------+------+------.
+ *                                  |      |      |      |       |      |      |      |
+ *                                  | Back | Fwd  |------|       |------|      |Reload|
+ *                                  |      |      |      |       |      |      |      |
+ *                                  `--------------------'       `--------------------'
+ */
+
+[NAVI] = LAYOUT_ergodox(
+  // left hand
+  VRSN,              KC_F1,   KC_F2,             KC_F3,   KC_F4,   KC_F5,   RESET,
+  _______,           _______, _______,           _______, _______, _______, _______,
+  LM(MODS,MOD_LCTL), KC_LGUI, KC_BTN2,           KC_BTN3, KC_BTN1, _______,
+  _______,           _______, _______,           _______, _______, _______, _______,
+  _______,           _______, LM(MODS,MOD_LALT), _______, _______,
+                                                                   _______, _______, 
+                                                                            _______,
+                                                          KC_BTN4, KC_BTN5, _______,
+  // right hand
+  _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,             KC_F10,  KC_F11,
+  _______, _______, KC_HOME, KC_PGDN, KC_PGUP,           KC_END,  KC_F12,
+           _______, KC_LEFT, KC_DOWN, KC_UP,             KC_RGHT, _______,
+  _______, _______, KC_MS_L, KC_MS_D, KC_MS_U,           KC_MS_R, _______,
+                    _______, _______, LM(MODS,MOD_RALT), _______, _______,
+  _______, _______,
+  _______,
+  _______, _______, C(KC_R)
+),
+
 /* Ctrl-key overlay for use with Unicode maps:
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -233,57 +291,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______,
   _______,
   _______, _______, _______
-),
-
-/* Navigation layer:
- *
- * ,---------------------------------------------------.           ,--------------------------------------------------.
- * | Version |  F1  |  F2  |  F3  |  F4  |  F5  |Reset |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
- * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |      | Home | PgDn | PgUp | End  |  F12   |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |Super | Rclk | Mclk | Lclk |      |------|           |------|      | LEFT | DOWN |  UP  | RGHT |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |      |MsLeft|MsDown| MsUp |MsRght|        |
- * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |       |      |      |      |      |                                       |      |      |      |      |      |
- *   `-----------------------------------'                                       `----------------------------------'
- *                                         ,-------------.       ,-------------.
- *                                         |      |      |       |      |      |
- *                                  ,------|------|------|       |------+------+------.
- *                                  |      |      |      |       |      |      |      |
- *                                  | Back | Fwd  |------|       |------|      |Reload|
- *                                  |      |      |      |       |      |      |      |
- *                                  `--------------------'       `--------------------'
- */
-
-[NAVI] = LAYOUT_ergodox(
-  // left hand
-  VRSN,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   RESET,
-  _______, _______, _______, _______, _______, _______, _______,
-  _______, KC_LGUI, KC_BTN2, KC_BTN3, KC_BTN1, _______,
-  _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______,
-                                               _______, _______, 
-                                                        _______,
-                                      KC_BTN4, KC_BTN5, _______,
-  // right hand
-  _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_F12,
-           _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
-  _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
-                    _______, _______, _______, _______, _______,
-  _______, _______,
-  _______,
-  _______, _______, C(KC_R)
 )
 
 };
 
+#ifdef UNICODEMAP_ENABLE
 void matrix_init_user(void) {
 
   set_unicode_input_mode(UC_LNX);
 };
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -292,6 +309,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case VRSN:
       SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       return false;
+#ifdef UNICODEMAP_ENABLE
     case GACC:
       if ((keyboard_report->mods & MOD_BIT (KC_LSFT)) ||
 	  (keyboard_report->mods & MOD_BIT (KC_RSFT))) {
@@ -300,8 +318,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	set_oneshot_layer(TONO, ONESHOT_START);
       }
       return false;
+#endif
     }
   } else {
+#ifdef UNICODEMAP_ENABLE
     switch (keycode) {
     case GACC:
     case KC_LSFT:
@@ -311,11 +331,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     default:
       clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
     }
+#endif
   }
   return true;
 }
 
-#if 1
+#ifdef UNICODEMAP_ENABLE
 
 layer_state_t layer_state_set_user(layer_state_t state) {
 
@@ -324,32 +345,26 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_right_led_3_off();
 
   uint8_t layer = get_highest_layer(state);
-  switch (layer) {
-  case BASE:
-    break;
-  case CYRL:
-  case GREK:
-  case TONO:
-  case DIAL:
-  case MODS:
-    if (layer_state_cmp(state, CYRL)) {
-      ergodox_right_led_3_on();
-    }
-    if (layer_state_cmp(state, GREK)) {
-      ergodox_right_led_3_off();
-      ergodox_right_led_2_on();
-    }
-    if (layer_state_cmp(state, TONO) ||
-	layer_state_cmp(state, DIAL) ||
-	layer_state_cmp(state, MODS))
-      ergodox_right_led_1_on();
-    break;
-  case NAVI:
+
+  if ((layer == BASE) ||
+      (layer == MODS))
+    return state;
+
+  if (layer == NAVI) {
     ergodox_right_led_1_on();
-    break;
-  default:
-    break;
+    return state;
   }
+
+  if (layer_state_cmp(state, CYRL)) {
+    ergodox_right_led_3_on();
+  }
+  if (layer_state_cmp(state, GREK)) {
+    ergodox_right_led_3_off();
+    ergodox_right_led_2_on();
+  }
+  if (layer_state_cmp(state, TONO) ||
+      layer_state_cmp(state, DIAL))
+    ergodox_right_led_1_on();
 
   return state;
 };
