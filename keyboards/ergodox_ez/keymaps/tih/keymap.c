@@ -11,7 +11,7 @@ enum layer_names {
   DIAL,     // Greek with Dialytika
 #endif
   NAVI,     // navigation keys
-  MODS      // Ctrl-key overlay
+  MODS      // Modifier key overlay
 };
 
 #ifndef UNICODEMAP_ENABLE
@@ -254,7 +254,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, C(KC_R)
 ),
 
-/* Ctrl-key overlay for use with Unicode maps:
+/* Modifier key overlay:
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
