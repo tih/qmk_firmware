@@ -26,7 +26,8 @@ enum custom_keycodes {
   VRSN = SAFE_RANGE,
 #endif
 #ifdef UNICODEMAP_ENABLE
-  GACC
+  GACC,
+  DIGS
 #endif
 };
 
@@ -39,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Base layer:
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Esc    |   1  |   2  |   3  |   4  |   5  | AltGr|           | AltGr|   6  |   7  |   8  |   9  |   0  |   -    |
+ * | Esc    |   1  |   2  |   3  |   4  |   5  | Meta |           | Comp |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  | Cyr. |           | Grk. |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -69,11 +70,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     KC_HOME,
                                    KC_BSPC, KC_DEL, KC_END,
   // right hand
-  KC_ALGR,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+  KC_RGUI,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
   TG(GREK), KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
             KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, ALGR_T(KC_QUOT),
   TG(NAVI), KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                     KC_LBRC, KC_RBRC, KC_RALT, KC_RGUI, TT(NAVI),
+                     KC_LBRC, KC_RBRC, KC_LALT, KC_LGUI, TT(NAVI),
   KC_DOWN, KC_UP,
   KC_PGUP,
   KC_PGDN, KC_ENT, KC_SPC
@@ -244,7 +245,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                         _______,
                                       KC_BTN4, KC_BTN5, _______,
   // right hand
-  _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
+  DIGS,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_F12,
            _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
   _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
@@ -311,12 +312,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
     case VRSN:
-      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+      return false;
+    case DIGS:
+      SEND_STRING ("12345");
       return false;
 #ifdef UNICODEMAP_ENABLE
     case GACC:
-      if ((keyboard_report->mods & MOD_BIT (KC_LSFT)) ||
-	  (keyboard_report->mods & MOD_BIT (KC_RSFT))) {
+      if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
 	set_oneshot_layer(DIAL, ONESHOT_START);
       } else {
 	set_oneshot_layer(TONO, ONESHOT_START);
@@ -328,9 +331,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef UNICODEMAP_ENABLE
     switch (keycode) {
     case GACC:
-    case KC_LSFT:
-    case KC_RSFT:
       clear_oneshot_layer_state(ONESHOT_PRESSED);
+      return false;
+    case KC_LSFT:
       break;
     default:
       clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
