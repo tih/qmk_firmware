@@ -27,7 +27,16 @@ enum custom_keycodes {
 #endif
 #ifdef UNICODEMAP_ENABLE
   GACC,
-  DIGS
+  DIGS,
+  ALPT,
+  EPST,
+  ETAT,
+  IOTT,
+  OMIT,
+  UPST,
+  OMET,
+  IOTD,
+  UPSD
 #endif
 };
 
@@ -171,16 +180,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [TONO] = LAYOUT_ergodox(
   // left hand
   _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, OMEGAT,  _______, _______,
+  _______, _______, _______, EPST,    _______, _______, _______,
+  _______, ALPT,    _______, _______, _______, _______,
+  _______, _______, _______, _______, OMET,    _______, _______,
   _______, _______, _______, _______, _______,
                                                _______, _______,
                                                         _______,
-                                      _______, _______, _______,
+                                     _______,  _______, _______,
   // right hand
   _______, _______, _______, _______, _______, _______, _______,
-  _______, UPSILT,  _______, IOTAT,   OMICRT,  _______, _______,
+  _______, UPST,    _______, IOTT,    OMIT,    _______, _______,
            ETAT,    _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______, _______,
@@ -201,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       _______, _______, _______,
   // right hand
   _______, _______, _______, _______, _______, _______, _______,
-  _______, UPSILD,  _______, IOTAD,   _______, _______, _______,
+  _______, UPSD,    _______, IOTD,    _______, _______, _______,
            _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______, _______,
@@ -325,6 +334,69 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	set_oneshot_layer(TONO, ONESHOT_START);
       }
       return false;
+    case ALPT:
+      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+	  keyboard_report->mods & MOD_BIT(KC_RSFT))
+	send_unicode_hex_string("0386");
+      else
+	send_unicode_hex_string("03AC");
+      return false;
+    case EPST:
+      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+	  keyboard_report->mods & MOD_BIT(KC_RSFT))
+	send_unicode_hex_string("0388");
+      else
+	send_unicode_hex_string("03AD");
+      return false;
+    case ETAT:
+      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+	  keyboard_report->mods & MOD_BIT(KC_RSFT))
+	send_unicode_hex_string("0389");
+      else
+	send_unicode_hex_string("03AE");
+      return false;
+    case IOTT:
+      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+	  keyboard_report->mods & MOD_BIT(KC_RSFT))
+	send_unicode_hex_string("038A");
+      else
+	send_unicode_hex_string("03AF");
+      return false;
+    case OMIT:
+      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+	  keyboard_report->mods & MOD_BIT(KC_RSFT))
+	send_unicode_hex_string("038C");
+      else
+	send_unicode_hex_string("03CC");
+      return false;
+    case UPST:
+      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+	  keyboard_report->mods & MOD_BIT(KC_RSFT))
+	send_unicode_hex_string("038E");
+      else
+	send_unicode_hex_string("03CD");
+      return false;
+    case OMET:
+      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+	  keyboard_report->mods & MOD_BIT(KC_RSFT))
+	send_unicode_hex_string("038F");
+      else
+	send_unicode_hex_string("03CE");
+      return false;
+    case IOTD:
+      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+	  keyboard_report->mods & MOD_BIT(KC_RSFT))
+	send_unicode_hex_string("03AA");
+      else
+	send_unicode_hex_string("03CA");
+      return false;
+    case UPSD:
+      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
+	  keyboard_report->mods & MOD_BIT(KC_RSFT))
+	send_unicode_hex_string("03AB");
+      else
+	send_unicode_hex_string("03CB");
+      return false;
 #endif
     }
   } else {
@@ -334,7 +406,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       clear_oneshot_layer_state(ONESHOT_PRESSED);
       return false;
     case KC_LSFT:
+    case KC_RSFT:
       break;
+    case ALPT:
+    case EPST:
+    case ETAT:
+    case IOTT:
+    case OMIT:
+    case UPST:
+    case OMET:
+    case IOTD:
+    case UPSD:
+      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+      return false;
     default:
       clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
     }

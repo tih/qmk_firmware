@@ -3,73 +3,6 @@
 #include "quantum.h"
 
 #define FOREACH_UNICODE(M) \
-    M(UALP,  0x0391) /* Α */ \
-    M(UBET,  0x0392) /* Β */ \
-    M(UGAM,  0x0393) /* Γ */ \
-    M(UDEL,  0x0394) /* Δ */ \
-    M(UEPS,  0x0395) /* Ε */ \
-    M(UZET,  0x0396) /* Ζ */ \
-    M(UETA,  0x0397) /* Η */ \
-    M(UTHE,  0x0398) /* Θ */ \
-    M(UIOT,  0x0399) /* Ι */ \
-    M(UKAP,  0x039A) /* Κ */ \
-    M(ULAM,  0x039B) /* Λ */ \
-    M(UMU,   0x039C) /* Μ */ \
-    M(UNU,   0x039D) /* Ν */ \
-    M(UXI,   0x039E) /* Ξ */ \
-    M(UOMI,  0x039F) /* Ο */ \
-    M(UPI,   0x03A0) /* Π */ \
-    M(URHO,  0x03A1) /* Ρ */ \
-    M(USIG,  0x03A3) /* Σ */ \
-    M(UTAU,  0x03A4) /* Τ */ \
-    M(UUPS,  0x03A5) /* Υ */ \
-    M(UPHI,  0x03A6) /* Φ */ \
-    M(UCHI,  0x03A7) /* Χ */ \
-    M(UPSI,  0x03A8) /* Ψ */ \
-    M(UOME,  0x03A9) /* Ω */ \
-    M(UALPT, 0x0386) /* Ά */ \
-    M(UEPST, 0x0388) /* Έ */ \
-    M(UETAT, 0x0389) /* Ή */ \
-    M(UIOTT, 0x038A) /* Ί */ \
-    M(UOMIT, 0x038C) /* Ό */ \
-    M(UUPST, 0x038E) /* Ύ */ \
-    M(UOMET, 0x038F) /* Ώ */ \
-    M(UIOTD, 0x03AA) /* Ϊ */ \
-    M(UUPSD, 0x03AB) /* Ϋ */ \
-    M(LALP,  0x03B1) /* α */ \
-    M(LBET,  0x03B2) /* β */ \
-    M(LGAM,  0x03B3) /* γ */ \
-    M(LDEL,  0x03B4) /* δ */ \
-    M(LEPS,  0x03B5) /* ε */ \
-    M(LZET,  0x03B6) /* ζ */ \
-    M(LETA,  0x03B7) /* η */ \
-    M(LTHE,  0x03B8) /* θ */ \
-    M(LIOT,  0x03B9) /* ι */ \
-    M(LKAP,  0x03BA) /* κ */ \
-    M(LLAM,  0x03BB) /* λ */ \
-    M(LMU,   0x03BC) /* μ */ \
-    M(LNU,   0x03BD) /* ν */ \
-    M(LXI,   0x03BE) /* ξ */ \
-    M(LOMI,  0x03BF) /* ο */ \
-    M(LPI,   0x03C0) /* π */ \
-    M(LRHO,  0x03C1) /* ρ */ \
-    M(LFSIG, 0x03C2) /* ς */ \
-    M(LSIG,  0x03C3) /* σ */ \
-    M(LTAU,  0x03C4) /* τ */ \
-    M(LUPS,  0x03C5) /* υ */ \
-    M(LPHI,  0x03C6) /* φ */ \
-    M(LCHI,  0x03C7) /* χ */ \
-    M(LPSI,  0x03C8) /* ψ */ \
-    M(LOME,  0x03C9) /* ω */ \
-    M(LALPT, 0x03AC) /* ά */ \
-    M(LEPST, 0x03AD) /* έ */ \
-    M(LETAT, 0x03AE) /* ή */ \
-    M(LIOTT, 0x03AF) /* ί */ \
-    M(LOMIT, 0x03CC) /* ό */ \
-    M(LUPST, 0x03CD) /* ύ */ \
-    M(LOMET, 0x03CE) /* ώ */ \
-    M(LIOTD, 0x03CA) /* ϊ */ \
-    M(LUPSD, 0x03CB) /* ϋ */ \
     M(UAH,   0x0410) /* А */ \
     M(UBE,   0x0411) /* Б */ \
     M(UVE,   0x0412) /* В */ \
@@ -135,7 +68,74 @@
     M(LSOFT, 0x044C) /* ь */ \
     M(LEH,   0x044D) /* э */ \
     M(LYU,   0x044E) /* ю */ \
-    M(LYA,   0x044F) /* я */
+    M(LYA,   0x044F) /* я */ \
+    M(UALP,  0x0391) /* Α */ \
+    M(UBET,  0x0392) /* Β */ \
+    M(UGAM,  0x0393) /* Γ */ \
+    M(UDEL,  0x0394) /* Δ */ \
+    M(UEPS,  0x0395) /* Ε */ \
+    M(UZET,  0x0396) /* Ζ */ \
+    M(UETA,  0x0397) /* Η */ \
+    M(UTHE,  0x0398) /* Θ */ \
+    M(UIOT,  0x0399) /* Ι */ \
+    M(UKAP,  0x039A) /* Κ */ \
+    M(ULAM,  0x039B) /* Λ */ \
+    M(UMU,   0x039C) /* Μ */ \
+    M(UNU,   0x039D) /* Ν */ \
+    M(UXI,   0x039E) /* Ξ */ \
+    M(UOMI,  0x039F) /* Ο */ \
+    M(UPI,   0x03A0) /* Π */ \
+    M(URHO,  0x03A1) /* Ρ */ \
+    M(USIG,  0x03A3) /* Σ */ \
+    M(UTAU,  0x03A4) /* Τ */ \
+    M(UUPS,  0x03A5) /* Υ */ \
+    M(UPHI,  0x03A6) /* Φ */ \
+    M(UCHI,  0x03A7) /* Χ */ \
+    M(UPSI,  0x03A8) /* Ψ */ \
+    M(UOME,  0x03A9) /* Ω */ \
+    M(LALP,  0x03B1) /* α */ \
+    M(LBET,  0x03B2) /* β */ \
+    M(LGAM,  0x03B3) /* γ */ \
+    M(LDEL,  0x03B4) /* δ */ \
+    M(LEPS,  0x03B5) /* ε */ \
+    M(LZET,  0x03B6) /* ζ */ \
+    M(LETA,  0x03B7) /* η */ \
+    M(LTHE,  0x03B8) /* θ */ \
+    M(LIOT,  0x03B9) /* ι */ \
+    M(LKAP,  0x03BA) /* κ */ \
+    M(LLAM,  0x03BB) /* λ */ \
+    M(LMU,   0x03BC) /* μ */ \
+    M(LNU,   0x03BD) /* ν */ \
+    M(LXI,   0x03BE) /* ξ */ \
+    M(LOMI,  0x03BF) /* ο */ \
+    M(LPI,   0x03C0) /* π */ \
+    M(LRHO,  0x03C1) /* ρ */ \
+    M(LFSIG, 0x03C2) /* ς */ \
+    M(LSIG,  0x03C3) /* σ */ \
+    M(LTAU,  0x03C4) /* τ */ \
+    M(LUPS,  0x03C5) /* υ */ \
+    M(LPHI,  0x03C6) /* φ */ \
+    M(LCHI,  0x03C7) /* χ */ \
+    M(LPSI,  0x03C8) /* ψ */ \
+    M(LOME,  0x03C9) /* ω */ \
+    M(UALPT, 0x0386) /* Ά */ \
+    M(UEPST, 0x0388) /* Έ */ \
+    M(UETAT, 0x0389) /* Ή */ \
+    M(UIOTT, 0x038A) /* Ί */ \
+    M(UOMIT, 0x038C) /* Ό */ \
+    M(UUPST, 0x038E) /* Ύ */ \
+    M(UOMET, 0x038F) /* Ώ */ \
+    M(UIOTD, 0x03AA) /* Ϊ */ \
+    M(UUPSD, 0x03AB) /* Ϋ */ \
+    M(LALPT, 0x03AC) /* ά */ \
+    M(LEPST, 0x03AD) /* έ */ \
+    M(LETAT, 0x03AE) /* ή */ \
+    M(LIOTT, 0x03AF) /* ί */ \
+    M(LOMIT, 0x03CC) /* ό */ \
+    M(LUPST, 0x03CD) /* ύ */ \
+    M(LOMET, 0x03CE) /* ώ */ \
+    M(LIOTD, 0x03CA) /* ϊ */ \
+    M(LUPSD, 0x03CB) /* ϋ */
 
 #define UC_KEYCODE(name, code)  name = UC(code),        // LALP = UC(0x03B1),
 
@@ -160,43 +160,6 @@ enum unicode_keycodes {
 #endif
 
 #if defined(UNICODEMAP_ENABLE)
-
-#define ALPHA   XP(LALP,  UALP)
-#define BETA    XP(LBET,  UBET)
-#define GAMMA   XP(LGAM,  UGAM)
-#define DELTA   XP(LDEL,  UDEL)
-#define EPSILON XP(LEPS,  UEPS)
-#define ZETA    XP(LZET,  UZET)
-#define ETA     XP(LETA,  UETA)
-#define THETA   XP(LTHE,  UTHE)
-#define IOTA    XP(LIOT,  UIOT)
-#define KAPPA   XP(LKAP,  UKAP)
-#define LAMBDA  XP(LLAM,  ULAM)
-#define GKMU    XP(LMU,   UMU)
-#define NU      XP(LNU,   UNU)
-#define XI      XP(LXI,   UXI)
-#define OMICRON XP(LOMI,  UOMI)
-#define PI      XP(LPI,   UPI)
-#define RHO     XP(LRHO,  URHO)
-#define SIGMA   XP(LSIG,  USIG)
-#define FSIGMA  XP(LFSIG, USIG)
-#define TAU     XP(LTAU,  UTAU)
-#define UPSILON XP(LUPS,  UUPS)
-#define PHI     XP(LPHI,  UPHI)
-#define CHI     XP(LCHI,  UCHI)
-#define PSI     XP(LPSI,  UPSI)
-#define OMEGA   XP(LOME,  UOME)
-
-#define ALPHAT  XP(LALPT, UALPT)
-#define EPSILT  XP(LEPST, UEPST)
-#define ETAT    XP(LETAT, UETAT)
-#define IOTAT   XP(LIOTT, UIOTT)
-#define OMICRT  XP(LOMIT, UOMIT)
-#define UPSILT  XP(LUPST, UUPST)
-#define OMEGAT  XP(LOMET, UOMET)
-
-#define IOTAD   XP(LIOTD, UIOTD)
-#define UPSILD  XP(LUPSD, UUPSD)
 
 #define AH      XP(LAH,   UAH)
 #define BE      XP(LBE,   UBE)
@@ -231,5 +194,46 @@ enum unicode_keycodes {
 #define EH      XP(LEH,   UEH)
 #define YU      XP(LYU,   UYU)
 #define YA      XP(LYA,   UYA)
+
+#define ALPHA   XP(LALP,  UALP)
+#define BETA    XP(LBET,  UBET)
+#define GAMMA   XP(LGAM,  UGAM)
+#define DELTA   XP(LDEL,  UDEL)
+#define EPSILON XP(LEPS,  UEPS)
+#define ZETA    XP(LZET,  UZET)
+#define ETA     XP(LETA,  UETA)
+#define THETA   XP(LTHE,  UTHE)
+#define IOTA    XP(LIOT,  UIOT)
+#define KAPPA   XP(LKAP,  UKAP)
+#define LAMBDA  XP(LLAM,  ULAM)
+#define GKMU    XP(LMU,   UMU)
+#define NU      XP(LNU,   UNU)
+#define XI      XP(LXI,   UXI)
+#define OMICRON XP(LOMI,  UOMI)
+#define PI      XP(LPI,   UPI)
+#define RHO     XP(LRHO,  URHO)
+#define SIGMA   XP(LSIG,  USIG)
+#define FSIGMA  XP(LFSIG, USIG)
+#define TAU     XP(LTAU,  UTAU)
+#define UPSILON XP(LUPS,  UUPS)
+#define PHI     XP(LPHI,  UPHI)
+#define CHI     XP(LCHI,  UCHI)
+#define PSI     XP(LPSI,  UPSI)
+#define OMEGA   XP(LOME,  UOME)
+
+#if 0 /* some of these are > 127 */
+
+#define ALPHAT  XP(LALPT, UALPT)
+#define EPSILT  XP(LEPST, UEPST)
+#define ETAT    XP(LETAT, UETAT)
+#define IOTAT   XP(LIOTT, UIOTT)
+#define OMICRT  XP(LOMIT, UOMIT)
+#define UPSILT  XP(LUPST, UUPST)
+#define OMEGAT  XP(LOMET, UOMET)
+
+#define IOTAD   XP(LIOTD, UIOTD)
+#define UPSILD  XP(LUPSD, UUPSD)
+
+#endif /* 0 */
 
 #endif
