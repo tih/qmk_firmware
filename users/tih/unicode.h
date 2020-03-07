@@ -234,6 +234,10 @@ enum unicode_keycodes {
 #define IOTAD   XP(LIOTD, UIOTD)
 #define UPSILD  XP(LUPSD, UUPSD)
 
+#else
+
+  extern char *greek_accents[];
+
 #endif /* 0 */
 
 #endif

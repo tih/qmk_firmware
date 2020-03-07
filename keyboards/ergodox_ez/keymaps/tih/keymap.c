@@ -335,67 +335,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     case ALPT:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-	  keyboard_report->mods & MOD_BIT(KC_RSFT))
-	send_unicode_hex_string("0386");
-      else
-	send_unicode_hex_string("03AC");
-      return false;
-    case EPST:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-	  keyboard_report->mods & MOD_BIT(KC_RSFT))
-	send_unicode_hex_string("0388");
-      else
-	send_unicode_hex_string("03AD");
-      return false;
     case ETAT:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-	  keyboard_report->mods & MOD_BIT(KC_RSFT))
-	send_unicode_hex_string("0389");
-      else
-	send_unicode_hex_string("03AE");
-      return false;
     case IOTT:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-	  keyboard_report->mods & MOD_BIT(KC_RSFT))
-	send_unicode_hex_string("038A");
-      else
-	send_unicode_hex_string("03AF");
-      return false;
     case OMIT:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-	  keyboard_report->mods & MOD_BIT(KC_RSFT))
-	send_unicode_hex_string("038C");
-      else
-	send_unicode_hex_string("03CC");
-      return false;
     case UPST:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-	  keyboard_report->mods & MOD_BIT(KC_RSFT))
-	send_unicode_hex_string("038E");
-      else
-	send_unicode_hex_string("03CD");
-      return false;
     case OMET:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-	  keyboard_report->mods & MOD_BIT(KC_RSFT))
-	send_unicode_hex_string("038F");
-      else
-	send_unicode_hex_string("03CE");
-      return false;
     case IOTD:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-	  keyboard_report->mods & MOD_BIT(KC_RSFT))
-	send_unicode_hex_string("03AA");
-      else
-	send_unicode_hex_string("03CA");
-      return false;
     case UPSD:
       if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
 	  keyboard_report->mods & MOD_BIT(KC_RSFT))
-	send_unicode_hex_string("03AB");
+	send_unicode_hex_string(greek_accents[(keycode-ALPT)*2]);
       else
-	send_unicode_hex_string("03CB");
+	send_unicode_hex_string(greek_accents[(keycode-ALPT)*2+1]);
       return false;
 #endif
     }
