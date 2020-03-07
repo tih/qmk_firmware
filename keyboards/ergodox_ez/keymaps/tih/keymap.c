@@ -27,7 +27,6 @@ enum custom_keycodes {
 #endif
 #ifdef UNICODEMAP_ENABLE
   GACC,
-  DIGS,
   ALPT,
   EPST,
   ETAT,
@@ -36,8 +35,9 @@ enum custom_keycodes {
   UPST,
   OMET,
   IOTD,
-  UPSD
+  UPSD,
 #endif
+  DIGS
 };
 
 #define MOD_CTL LM(MODS,MOD_LCTL)
