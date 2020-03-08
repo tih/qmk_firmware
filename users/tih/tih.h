@@ -1,5 +1,3 @@
-#pragma once
-
 #include "quantum.h"
 #include "version.h"
 

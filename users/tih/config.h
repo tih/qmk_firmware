@@ -1,3 +1,1 @@
-#pragma once
-
-#include "config_common.h"
+/* #define UNICODE_TYPE_DELAY 15 */
