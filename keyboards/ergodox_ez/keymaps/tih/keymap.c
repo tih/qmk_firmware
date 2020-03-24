@@ -44,6 +44,9 @@ enum custom_keycodes {
 #define MOD_ALT LM(MODS,MOD_LALT)
 #define MOD_GUI LM(MODS,MOD_LGUI)
 
+#define SUP_LEFT LGUI(KC_LEFT)
+#define SUP_RGHT LGUI(KC_RIGHT)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Base layer:
@@ -53,9 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  | Cyr. |           | Grk. |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Ctrl   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  | '/Meta |
- * |--------+------+------+------+------+------| Navi-|           | Navi-|------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  | gate |           | gate |   N  |   M  |   ,  |   .  |   /  | RShift |
+ * | Ctrl   | A/Ct | S/Sh | D/Al | F/Su |   G  |------|           |------|   H  | J/Su | K/Al | L/Sh | ;/Ct | '/Meta |
+ * |--------+------+------+------+------+------| Sup- |           | Sup- |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  | left |           | rght |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *  | Navi  | Super| Alt  |   `  |   =  |                                       |   [  |   ]  |  Alt | Super| Navi  |
  *  `-----------------------------------'                                       `-----------------------------------'
@@ -70,20 +73,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BASE] = LAYOUT_ergodox(
   // left hand
-  KC_ESC,   KC_1,    KC_2,    KC_3,   KC_4,   KC_5, KC_ALGR,
-  KC_TAB,   KC_Q,    KC_W,    KC_E,   KC_R,   KC_T, TG(CYRL),
-  KC_LCTL,  KC_A,    KC_S,    KC_D,   KC_F,   KC_G,
-  KC_LSFT,  KC_Z,    KC_X,    KC_C,   KC_V,   KC_B, TG(NAVI),
-  TT(NAVI), KC_LGUI, KC_LALT, KC_GRV, KC_EQL,
-                                           KC_LEFT, KC_RIGHT,
-                                                    KC_HOME,
-                                   KC_BSPC, KC_DEL, KC_END,
+  KC_ESC,   KC_1,         KC_2,         KC_3,         KC_4,           KC_5, KC_ALGR,
+  KC_TAB,   KC_Q,         KC_W,         KC_E,         KC_R,           KC_T, TG(CYRL),
+  KC_LCTL,  LCTL_T(KC_A), LSFT_T(KC_S), LALT_T(KC_D), LGUI_T(KC_F),   KC_G,
+  KC_LSFT,  KC_Z,         KC_X,         KC_C,         KC_V,           KC_B, SUP_LEFT,
+  TT(NAVI), KC_LGUI,      KC_LALT,      KC_GRV,       KC_EQL,
+                                                                   KC_LEFT, KC_RIGHT,
+                                                                            KC_HOME,
+                                                           KC_BSPC, KC_DEL, KC_END,
   // right hand
-  KC_RGUI,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
-  TG(GREK), KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS,
-            KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, ALGR_T(KC_QUOT),
-  TG(NAVI), KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-                     KC_LBRC, KC_RBRC, KC_LALT, KC_LGUI, TT(NAVI),
+  KC_RGUI,  KC_6, KC_7,         KC_8,         KC_9,         KC_0,            KC_MINS,
+  TG(GREK), KC_Y, KC_U,         KC_I,         KC_O,         KC_P,            KC_BSLS,
+            KC_H, LGUI_T(KC_J), LALT_T(KC_K), LSFT_T(KC_L), LCTL_T(KC_SCLN), ALGR_T(KC_QUOT),
+  SUP_RGHT, KC_N, KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         KC_RSFT,
+                  KC_LBRC,      KC_RBRC,      KC_LALT,      KC_LGUI,         TT(NAVI),
   KC_DOWN, KC_UP,
   KC_PGUP,
   KC_PGDN, KC_ENT, KC_SPC
@@ -224,13 +227,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Navigation layer:
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
- * | Version |  F1  |  F2  |  F3  |  F4  |  F5  |Reset |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * | Version |  F1  |  F2  |  F3  |  F4  |  F5  |Reset |           |      |  F6  |  F7  |  F8  |  F9  | F10  |  F11   |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |      | Home | PgDn | PgUp | End  |  F12   |
+ * |         |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |  F12   |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |    Ctl  | Super| Rclk | Mclk | Lclk |      |------|           |------|      | LEFT | DOWN |  UP  | RGHT |        |
+ * |    Ctl  | Super| Rclk | Mclk | Lclk |      |------|           |------|      |MsLeft|MsDown| MsUp |MsRght|        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |      |MsLeft|MsDown| MsUp |MsRght|        |
+ * |         | Home | PgDn | PgUp | End  |      |      |           |      |      | Left | Down |  Up  | Rght |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |       | Super|  Alt |      |      |                                       |      |      |  Alt | Super|      |
  *   `-----------------------------------'                                       `----------------------------------'
@@ -246,18 +249,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [NAVI] = LAYOUT_ergodox(
   // left hand
   VRSN,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   RESET,
-  _______, _______, _______, _______, _______, _______, _______,
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     _______,
   MOD_CTL, KC_LGUI, KC_BTN2, KC_BTN3, KC_BTN1, _______,
-  _______, _______, _______, _______, _______, _______, _______,
+  _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
   _______, MOD_GUI, MOD_ALT, _______, _______,
                                                _______, _______, 
                                                         _______,
                                       KC_BTN4, KC_BTN5, _______,
   // right hand
   DIGS,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_F12,
-           _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
-  _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
+  _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_F12,
+           _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______,
+  _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
                     _______, _______, MOD_ALT, MOD_GUI, _______,
   _______, _______,
   _______,
