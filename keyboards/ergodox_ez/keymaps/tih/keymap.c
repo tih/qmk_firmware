@@ -10,6 +10,7 @@ enum layer_names {
   TONO,     // Greek with Tonos
   DIAL,     // Greek with Dialytika
 #endif
+  NUMS,     // Symbols and numerals
   NAVI,     // Navigation keys
   MODS      // Modifier key overlay
 };
@@ -56,11 +57,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  | Cyr. |           | Grk. |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Ctrl   | A/Ct | S/Sh | D/Al | F/Su |   G  |------|           |------|   H  | J/Su | K/Al | L/Sh | ;/Ct | '/Meta |
+ * | Ctrl   | A/Ct | S/Sh | D/Al | F/Su | G/Nu |------|           |------| H/Nu | J/Su | K/Al | L/Sh | ;/Ct | '/Meta |
  * |--------+------+------+------+------+------| Sup- |           | Sup- |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  | left |           | rght |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *  | Navi  | Super| Alt  |   `  |   =  |                                       |   [  |   ]  |  Alt | Super| Navi  |
+ *  | Navi  | Super| Alt  |   `  |   =  |                                       |   [  |   ]  |  Alt | Super|  Navi |
  *  `-----------------------------------'                                       `-----------------------------------'
  *                                        ,--------------.     ,--------------.
  *                                        |   <-  |  ->  |     |   V  |   ^   |
@@ -73,20 +74,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BASE] = LAYOUT_ergodox(
   // left hand
-  KC_ESC,   KC_1,         KC_2,         KC_3,         KC_4,           KC_5, KC_ALGR,
-  KC_TAB,   KC_Q,         KC_W,         KC_E,         KC_R,           KC_T, TG(CYRL),
-  KC_LCTL,  LCTL_T(KC_A), LSFT_T(KC_S), LALT_T(KC_D), LGUI_T(KC_F),   KC_G,
-  KC_LSFT,  KC_Z,         KC_X,         KC_C,         KC_V,           KC_B, SUP_LEFT,
+  KC_ESC,   KC_1,         KC_2,         KC_3,         KC_4,         KC_5,           KC_ALGR,
+  KC_TAB,   KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,           TG(CYRL),
+  KC_LCTL,  LCTL_T(KC_A), LSFT_T(KC_S), LALT_T(KC_D), LGUI_T(KC_F), LT(NUMS, KC_G),
+  KC_LSFT,  KC_Z,         KC_X,         KC_C,         KC_V,         KC_B,           SUP_LEFT,
   TT(NAVI), KC_LGUI,      KC_LALT,      KC_GRV,       KC_EQL,
-                                                                   KC_LEFT, KC_RIGHT,
-                                                                            KC_HOME,
-                                                           KC_BSPC, KC_DEL, KC_END,
+                                                                           KC_LEFT, KC_RIGHT,
+                                                                                    KC_HOME,
+                                                                  KC_BSPC, KC_DEL,  KC_END,
   // right hand
-  KC_RGUI,  KC_6, KC_7,         KC_8,         KC_9,         KC_0,            KC_MINS,
-  TG(GREK), KC_Y, KC_U,         KC_I,         KC_O,         KC_P,            KC_BSLS,
-            KC_H, LGUI_T(KC_J), LALT_T(KC_K), LSFT_T(KC_L), LCTL_T(KC_SCLN), ALGR_T(KC_QUOT),
-  SUP_RGHT, KC_N, KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         KC_RSFT,
-                  KC_LBRC,      KC_RBRC,      KC_LALT,      KC_LGUI,         TT(NAVI),
+  KC_RGUI,  KC_6,           KC_7,         KC_8,         KC_9,         KC_0,            KC_MINS,
+  TG(GREK), KC_Y,           KC_U,         KC_I,         KC_O,         KC_P,            KC_BSLS,
+            LT(NUMS, KC_H), LGUI_T(KC_J), LALT_T(KC_K), LSFT_T(KC_L), LCTL_T(KC_SCLN), ALGR_T(KC_QUOT),
+  SUP_RGHT, KC_N,           KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         KC_RSFT,
+                            KC_LBRC,      KC_RBRC,      KC_LALT,      KC_LGUI,         TT(NAVI),
   KC_DOWN, KC_UP,
   KC_PGUP,
   KC_PGDN, KC_ENT, KC_SPC
@@ -224,6 +225,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #endif
 
+/* Symbols and numerals:
+ *
+ * ,---------------------------------------------------.           ,--------------------------------------------------.
+ * |         |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
+ * |         |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |        |
+ * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |         |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
+ * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |         |   Æ  |   Ø  |  `   |   =  |   Å  |      |           |      |   \  |   [  |   ]  |   -  |   '  |        |
+ * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |       |      |      |      |      |                                       |      |      |      |      |      |
+ *   `-----------------------------------'                                       `----------------------------------'
+ *                                         ,-------------.       ,-------------.
+ *                                         |      |      |       |      |      |
+ *                                  ,------|------|------|       |------+------+------.
+ *                                  |      |      |      |       |      |      |      |
+ *                                  |      |      |------|       |------|      |      |
+ *                                  |      |      |      |       |      |      |      |
+ *                                  `--------------------'       `--------------------'
+ */
+
+[NUMS] = LAYOUT_ergodox(
+  // left hand
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,
+  _______, _______, _______, _______, _______, _______,
+#ifdef UNICODEMAP_ENABLE
+  _______, AELIG,   OSLASH,  KC_GRV,  KC_EQL,  ARING,   _______,
+#else
+  _______, KC_ESC,  KC_CAPS, KC_GRV,  KC_EQL,  KC_TAB,  _______,
+#endif
+  _______, _______, _______, _______, _______,
+                                               _______, _______, 
+                                                        _______,
+                                      _______, _______, _______,
+  // right hand
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+           _______, _______, _______, _______, _______, _______,
+  _______, KC_BSLS, KC_LBRC, KC_RBRC, KC_MINS, KC_QUOT, _______,
+                    _______, _______, _______, _______, _______,
+  _______, _______,
+  _______,
+  _______, _______, _______
+),
+
 /* Navigation layer:
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
@@ -233,7 +281,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |    Ctl  | Super| Rclk | Mclk | Lclk |      |------|           |------|      |MsLeft|MsDown| MsUp |MsRght|        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         | Home | PgDn | PgUp | End  |      |      |           |      |      | Left | Down |  Up  | Rght |        |
+ * |         | Home | PgUp | PgDn | End  |      |      |           |      |      | Left | Down |  Up  | Rght |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |       | Super|  Alt |      |      |                                       |      |      |  Alt | Super|      |
  *   `-----------------------------------'                                       `----------------------------------'
@@ -251,7 +299,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   VRSN,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   RESET,
   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     _______,
   MOD_CTL, KC_LGUI, KC_BTN2, KC_BTN3, KC_BTN1, _______,
-  _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+  _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  _______, _______,
   _______, MOD_GUI, MOD_ALT, _______, _______,
                                                _______, _______, 
                                                         _______,
@@ -389,14 +437,25 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
 
+  ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
+  ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
+  ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
+
   uint8_t layer = get_highest_layer(state);
 
   if ((layer == BASE) ||
       (layer == MODS))
     return state;
 
+  if (layer == NUMS) {
+    ergodox_right_led_1_on();
+    return state;
+  }
+
   if (layer == NAVI) {
     ergodox_right_led_1_on();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_on();
     return state;
   }
 
@@ -421,6 +480,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
+
+  ergodox_right_led_1_set (LED_BRIGHTNESS_LO);
+  ergodox_right_led_2_set (LED_BRIGHTNESS_LO);
+  ergodox_right_led_3_set (LED_BRIGHTNESS_LO);
 
   uint8_t layer = get_highest_layer(state);
   switch (layer) {

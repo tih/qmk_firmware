@@ -1,1 +1,2 @@
-/* #define UNICODE_TYPE_DELAY 15 */
+#undef TAPPING_TERM
+#define TAPPING_TERM 250
