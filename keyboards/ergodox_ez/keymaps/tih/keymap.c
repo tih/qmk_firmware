@@ -6,6 +6,7 @@ enum layer_names {
   BASE = 0, // Default layer; US ASCII
 #ifdef UNICODEMAP_ENABLE
   CYRL,     // Russian Cyrillic
+  CSFT,	    // Russian Cyrillic soft vowels
   GREK,     // Greek
   TONO,     // Greek with Tonos
   DIAL,     // Greek with Dialytika
@@ -119,20 +120,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [CYRL] = LAYOUT_ergodox(
   // left hand
+  _______, _______, _______, _______, _______,  _______, _______,
+  _______, CHE,     VE,      EH,      ER,       TE,      _______,
+  MOD_CTL, AH,      ES,      DE,      EF,       GHE,
+  _______, ZE,      ZHE,     SHA,     SCHA,     BE,      _______,
+  _______, MOD_GUI, MOD_ALT, HARD,    MO(CSFT),
+                                                _______, _______,
+                                                         _______,
+                                       _______, _______, _______,
+  // right hand
+  _______, _______, _______,  _______, _______, _______, _______,
+  _______, TSE,     UU,       YERU,    OH,      PE,      _______,
+           HA,      SIH,      KA,      EL,      _______, _______,
+  _______, EN,      EM,       _______, _______, IO,      _______,
+                    MO(CSFT), SOFT,    MOD_ALT, MOD_GUI, _______,
+  _______, _______,
+  _______,
+  _______, _______, _______
+),
+
+[CSFT] = LAYOUT_ergodox(
+  // left hand
   _______, _______, _______, _______, _______, _______, _______,
-  YU,      YA,      VE,      IE,      ER,      TE,      _______,
-  MOD_CTL, AH,      ES,      DE,      EF,      GHE,
-  _______, ZE,      HA,      TSE,     ZHE,     BE,      _______,
-  _______, MOD_GUI, MOD_ALT, HARD,    SOFT,
+  _______, _______, _______, IE,      _______, _______, _______,
+  _______, YA,      _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______,
                                                _______, _______,
                                                         _______,
                                       _______, _______, _______,
   // right hand
   _______, _______, _______, _______, _______, _______, _______,
-  _______, YERU,    UU,      IH,      OH,      PE,      _______,
-           CHE,     SIH,     KA,      EL,      EH,      _______,
-  _______, EN,      EM,      _______, _______, IO,      _______,
-                    SHA,     SCHA,    MOD_ALT, MOD_GUI, _______,
+  _______, _______, YU,      IH,      IO,      _______, _______,
+           _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______,
+                    _______, _______, _______, _______, _______,
   _______, _______,
   _______,
   _______, _______, _______
@@ -467,7 +489,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     ergodox_right_led_2_on();
   }
   if (layer_state_cmp(state, TONO) ||
-      layer_state_cmp(state, DIAL))
+      layer_state_cmp(state, DIAL) ||
+      layer_state_cmp(state, CSFT))
     ergodox_right_led_1_on();
 
   return state;
