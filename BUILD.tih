@@ -1,0 +1,4 @@
+gmake ergodox_ez:tih
+gmake ergodox_ez:tih:flash
+gmake keyboardio/atreus:default
+gmake keyboardio/atreus:default:flash

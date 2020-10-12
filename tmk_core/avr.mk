@@ -158,6 +158,37 @@ define EXEC_AVRDUDE
 	USB= ;\
 	if $(GREP) -q -s Microsoft /proc/version; then \
 		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using QMK Toolbox, AVRDUDE, AVRDUDESS, or XLoader.'; \
+	elif $(GREP) -q -s NetBSD /proc/version; then \
+		TMP1=`dmesg | grep -w "ucom[0-9]" | tail -1`; \
+		TMP2=$$TMP1; \
+		printf "Detecting USB port, reset your controller now."; \
+		while [ "$$TMP2" = "$$TMP1" ]; do \
+			sleep 0.5; \
+			printf "."; \
+			TMP2=`dmesg | grep -w "ucom[0-9]" | tail -1`; \
+			if (echo $$TMP2 | grep -q -s " ucom[0-9] at "); then \
+				UNIT=`echo $$TMP2 | sed 's^.*\(ucom[0-9]\).*^\1^'`; \
+				USB=`echo $$TMP2 | sed 's^.*ucom\([0-9]\).*^/dev/ttyU\1^'`; \
+			else \
+				TMP2=$$TMP1; \
+			fi; \
+			if [ ! -e $$USB ]; then \
+				echo ""; \
+				echo "Device $$UNIT has appeared, but there is no device node $$USB."; \
+				TMP2=$$TMP1; \
+			elif [ ! -w $$USB ]; then \
+				echo ""; \
+				echo "Device $$UNIT has appeared, but you lack write access to $$USB."; \
+				TMP2=$$TMP1; \
+			fi; \
+		done; \
+		echo ""; \
+		echo "Device $$UNIT has appeared; assuming $$USB is the controller device node."; \
+		if [ -z "$(1)" ]; then \
+			avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
+		else \
+			avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex -U eeprom:w:$(QUANTUM_PATH)/split_common/$(1); \
+		fi \
 	else \
 		printf "Detecting USB port, reset your controller now."; \
 		TMP1=`mktemp`; \
