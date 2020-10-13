@@ -401,9 +401,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
 #ifdef UNICODEMAP_ENABLE
     case GACC:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT)) {
+      if (keyboard_report->mods & MOD_MASK_SHIFT) {
+	layer_on(DIAL);
 	set_oneshot_layer(DIAL, ONESHOT_START);
       } else {
+	layer_on(TONO);
 	set_oneshot_layer(TONO, ONESHOT_START);
       }
       return false;
@@ -415,8 +417,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case OMET:
     case IOTD:
     case UPSD:
-      if (keyboard_report->mods & MOD_BIT(KC_LSFT) ||
-	  keyboard_report->mods & MOD_BIT(KC_RSFT))
+      if (keyboard_report->mods & MOD_MASK_SHIFT)
 	send_unicode_hex_string(greek_accents[(keycode-ALPT)*2]);
       else
 	send_unicode_hex_string(greek_accents[(keycode-ALPT)*2+1]);
@@ -427,7 +428,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef UNICODEMAP_ENABLE
     switch (keycode) {
     case GACC:
-      clear_oneshot_layer_state(ONESHOT_PRESSED);
       return false;
     case KC_LSFT:
     case KC_RSFT:
@@ -441,10 +441,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case OMET:
     case IOTD:
     case UPSD:
-      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+      clear_oneshot_layer_state(ONESHOT_PRESSED);
       return false;
     default:
-      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+      clear_oneshot_layer_state(ONESHOT_PRESSED);
     }
 #endif
   }
@@ -488,9 +488,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     ergodox_right_led_3_off();
     ergodox_right_led_2_on();
   }
-  if (layer_state_cmp(state, TONO) ||
-      layer_state_cmp(state, DIAL) ||
-      layer_state_cmp(state, CSFT))
+  if (layer_state_cmp(state, CSFT) ||
+      layer_state_cmp(state, TONO) ||
+      layer_state_cmp(state, DIAL))
     ergodox_right_led_1_on();
 
   return state;
