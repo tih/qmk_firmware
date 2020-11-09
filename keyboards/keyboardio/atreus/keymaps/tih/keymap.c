@@ -42,3 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_N,    KC_M,    _______, _______, _______, 
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______)
 };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  return TAPPING_TERM;
+}

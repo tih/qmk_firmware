@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_RGUI,  KC_6,           KC_7,         KC_8,         KC_9,         KC_0,            KC_MINS,
   TG(GREK), KC_Y,           KC_U,         KC_I,         KC_O,         KC_P,            KC_BSLS,
             LT(NUMS, KC_H), LGUI_T(KC_J), LALT_T(KC_K), LSFT_T(KC_L), LCTL_T(KC_SCLN), ALGR_T(KC_QUOT),
-  SUP_RGHT, KC_N,           KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         KC_RSFT,
+  SUP_RGHT, KC_N,           KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         OSM(MOD_RSFT)/*KC_RSFT*/,
                             KC_LBRC,      KC_RBRC,      KC_ALGR,      KC_RGUI,         TT(NAVI),
   KC_DOWN, KC_UP,
   KC_PGUP,
@@ -381,6 +381,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  return TAPPING_TERM;
+}
 
 #ifdef UNICODEMAP_ENABLE
 void matrix_init_user(void) {
