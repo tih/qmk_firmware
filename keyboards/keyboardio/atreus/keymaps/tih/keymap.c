@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
     KC_LGUI, KC_BTN2, KC_BTN3, KC_BTN1, _______,                   _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
     KC_HOME, KC_PGUP, KC_PGDN, KC_END,  _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT,
-    MOD_GUI, MOD_ALT, _______, _______, _______, _______, _______, _______, _______, _______, RESET,   _______),
+    MOD_GUI, MOD_ALT, _______, _______, KC_BTN4, KC_BTN5, _______, C(KC_R), _______, _______, RESET,   _______),
 
   [MODS] = LAYOUT(
     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
