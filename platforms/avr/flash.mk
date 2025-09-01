@@ -82,7 +82,7 @@ define EXEC_AVRDUDE
 		elif [ "`uname`" = "FreeBSD" ]; then \
 			ls /dev/tty* | grep -v '\.lock$$' | grep -v '\.init$$'; \
 		elif [ "`uname`" = "NetBSD" ]; then \
-			dmesg | grep " ucom[0-9] at " | sed 's^.*ucom\([0-9]\).*^/dev/ttyU\1^'; \
+			dmesg | grep -E ' ucom[0-9]+ at ' | sed -E 's^.*ucom([0-9]+).*^/dev/ttyU\1^'; \
 		else \
 			ls /dev/tty*; \
 		fi; \
