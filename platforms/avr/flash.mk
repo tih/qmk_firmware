@@ -81,6 +81,8 @@ define EXEC_AVRDUDE
 			powershell.exe 'Get-CimInstance -Class Win32_SerialPort | Select -ExpandProperty "DeviceID"' 2>/dev/null | sed -e "s/\r//g" | LANG=C perl -pne 's/COM(\d+)/COM.($$1-1)/e' | sed 's!COM!/dev/ttyS!' | sort; \
 		elif [ "`uname`" = "FreeBSD" ]; then \
 			ls /dev/tty* | grep -v '\.lock$$' | grep -v '\.init$$'; \
+		elif [ "`uname`" = "NetBSD" ]; then \
+			dmesg | grep -E ' ucom[0-9]+ at ' | sed -E 's^.*ucom([0-9]+).*^/dev/ttyU\1^'; \
 		else \
 			ls /dev/tty*; \
 		fi; \
