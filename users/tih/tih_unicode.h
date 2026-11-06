@@ -264,4 +264,4 @@ char *greek_accents[] = {
 
 #endif /* 0 */
 
-#endif
+#endif /* UNICODEMAP_ENABLE */

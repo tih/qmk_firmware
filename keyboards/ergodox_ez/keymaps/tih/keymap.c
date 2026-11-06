@@ -27,6 +27,7 @@ enum custom_keycodes {
 #else
   VRSN = SAFE_RANGE,
 #endif
+  PWRD,
 #ifdef UNICODEMAP_ENABLE
   GACC,
   ALPT,
@@ -294,7 +295,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * | Version |  F1  |  F2  |  F3  |  F4  |  F5  |Loader|           |Reset |  F6  |  F7  |  F8  |  F9  | F10  |  F11   |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |  F12   |
+ * |    PW   |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |  F12   |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |    Ctl  | Super| Rclk | Mclk | Lclk |      |------|           |------|      |MsLeft|MsDown| MsUp |MsRght|        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -314,7 +315,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [NAVI] = LAYOUT_ergodox(
   // left hand
   VRSN,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   QK_BOOT,
-  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,
+  PWRD,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,
   MOD_CTL, KC_LGUI, KC_BTN2, KC_BTN3, KC_BTN1, _______,
   _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  _______, _______,
   _______, MOD_GUI, MOD_ALT, _______, _______,
@@ -397,6 +398,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case VRSN:
       SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+      return false;
+    case PWRD:
+      SEND_STRING("XXXXX");
       return false;
 #ifdef UNICODEMAP_ENABLE
     case GACC:

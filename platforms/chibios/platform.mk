@@ -423,8 +423,7 @@ else
     TOOLCHAIN ?= arm-none-eabi-
 
     # Toolchain specific Linker flags
-    TOOLCHAIN_LDFLAGS = -Wl,--no-wchar-size-warning \
-                        --specs=nano.specs
+    TOOLCHAIN_LDFLAGS = -Wl,--no-wchar-size-warning
 
     # MCU architecture flags
     MCUFLAGS = -mcpu=$(MCU) \
